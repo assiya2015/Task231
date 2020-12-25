@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> searchUsers(String theSearchName) {
-        TypedQuery<User> theQuery=null;
+        TypedQuery<User> theQuery;
 
         if(theSearchName!=null && theSearchName.trim().length()>0) {
             theQuery=entityManager.createQuery("from User where lower(firstName) like: theName or "
@@ -47,7 +47,7 @@ public class UserDaoImpl implements UserDao {
             theQuery.setParameter("theName","%"+theSearchName.toLowerCase()+"%");
         }
         else {
-            theQuery=entityManager.createQuery("from Customer", User.class);
+            theQuery=entityManager.createQuery("from User", User.class);
         }
         return theQuery.getResultList();
     }
