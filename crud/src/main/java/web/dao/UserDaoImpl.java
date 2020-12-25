@@ -17,7 +17,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> getUsers() {
+    public List<User> getAllUsers() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
 
@@ -38,26 +38,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> searchUsers(String theSearchName) {
-        TypedQuery<User> theQuery;
-
-        if(theSearchName!=null && theSearchName.trim().length()>0) {
-            theQuery=entityManager.createQuery("from User where lower(firstName) like: theName or "
-                    + "lower(lastName) like: theName", User.class);
-            theQuery.setParameter("theName","%"+theSearchName.toLowerCase()+"%");
-        }
-        else {
-            theQuery=entityManager.createQuery("from User", User.class);
-        }
-        return theQuery.getResultList();
-    }
-
-    @Override
-    public void updateUser(long id, User user) {
-        User tempUser = getUser(id);
-        tempUser.setFirstName(user.getFirstName());
-        tempUser.setLastName(user.getLastName());
-        tempUser.setEmail(user.getEmail());
-            entityManager.merge(tempUser);
+    public void updateUser(User user) {
+        entityManager.merge(user);
     }
 }

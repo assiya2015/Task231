@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public List<User> getUsers() {
-        return userDao.getUsers();
+        return userDao.getAllUsers();
     }
 
     @Override
@@ -43,15 +43,11 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUser(id);
     }
 
-    @Override
-    public List<User> searchUsers(String theSearchName) {
-        return userDao.searchUsers(theSearchName);
-    }
 
     @Override
     @Transactional
-    public void updateUser(long id, User user) {
-        userDao.updateUser(id, user);
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 }
 

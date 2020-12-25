@@ -10,7 +10,5 @@ public interface UserService {
     User getUser(long id);
     void saveUser(User user);
     void deleteUser(Long id);
-
-    List<User> searchUsers(String theSearchName);
-    void updateUser(long id, User user);
+    void updateUser(User user);
 }

@@ -54,17 +54,13 @@ public class UserController {
         return "redirect:/list";
     }
 
-    @GetMapping("/search")
-    public String searchCustomer(@RequestParam("theSearchName") String theSearchName, Model theModel) {
-
-        List<User> users= userService.searchUsers(theSearchName);
-        theModel.addAttribute("users", users);
-        return "list-users";
-    }
-
     @PostMapping("/updateUser")
     public String updateUser(@RequestParam("id") long id, @ModelAttribute("user") User user) {
-        userService.updateUser(id, user);
+        User tempUser = userService.getUser(id);
+        tempUser.setFirstName(user.getFirstName());
+        tempUser.setLastName(user.getLastName());
+        tempUser.setEmail(user.getEmail());
+        userService.updateUser(tempUser);
         return "redirect:/list";
     }
 
